@@ -3,6 +3,7 @@ package com.trungdunghoang125.mymovie.ui.view;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +28,7 @@ public class MovieListActivity extends AppCompatActivity implements ItemClick {
     private SearchView searchView;
     private MovieListViewModel viewModel;
     private MovieListAdapter adapter;
+    int i = 0;
 
     @Override
 
@@ -78,6 +80,10 @@ public class MovieListActivity extends AppCompatActivity implements ItemClick {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                viewModel.getFilter().filter(newText);
+                observerFilterList();
+                i++;
+                Log.d("TAG", "onQueryTextChange: " + i + " " + newText);
                 return false;
             }
         });
@@ -90,6 +96,17 @@ public class MovieListActivity extends AppCompatActivity implements ItemClick {
 
     private void observerPopMovie() {
         viewModel.getPopMovieList().observe(this, new Observer<List<MovieModel>>() {
+            @Override
+            public void onChanged(List<MovieModel> movieModels) {
+                if (movieModels != null) {
+                    adapter.setMovieModelList(movieModels);
+                }
+            }
+        });
+    }
+
+    private void observerFilterList() {
+        viewModel.getFilterResultList().observe(this, new Observer<List<MovieModel>>() {
             @Override
             public void onChanged(List<MovieModel> movieModels) {
                 if (movieModels != null) {
