@@ -12,12 +12,10 @@ import java.util.List;
  */
 public class MovieRepository {
     private static MovieRepository instance;
-    private LiveData<List<MovieModel>> popMovieList;
     private MovieApiClient movieApiClient;
 
     private MovieRepository() {
         movieApiClient = MovieApiClient.getInstance();
-        popMovieList = movieApiClient.getPopMovieList();
     }
 
     public static MovieRepository getInstance() {
@@ -28,6 +26,10 @@ public class MovieRepository {
     }
 
     public LiveData<List<MovieModel>> getPopMovieList() {
-        return popMovieList;
+        return movieApiClient.getPopMovieList();
+    }
+
+    public LiveData<List<MovieModel>> searchMovieByName(String name) {
+        return movieApiClient.getSearchMovieList(name);
     }
 }

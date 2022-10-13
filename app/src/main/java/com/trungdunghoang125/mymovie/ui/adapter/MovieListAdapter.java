@@ -22,10 +22,10 @@ import java.util.List;
  * Created by trungdunghoang125 on 07/10/2022
  */
 public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<MovieModel> movieModelList;
-    private ItemClick itemClick;
     private static final int POP_MOVIES_LIST = 1;
     private static final int SEARCH_MOVIES_LIST = 2;
+    private List<MovieModel> movieModelList;
+    private ItemClick itemClick;
 
     public MovieListAdapter(ItemClick itemClick) {
         this.itemClick = itemClick;
@@ -45,8 +45,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.movie_pop_item, parent, false);
             return new PopMovieViewHolder(view);
-        }
-        else {
+        } else {
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.movie_search_item, parent, false);
             return new MovieSearchViewHolder(view);
@@ -63,8 +62,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             holder.itemView.setOnClickListener(view -> {
                 itemClick.onItemClick(holder.getAdapterPosition());
             });
-        }
-        else {
+        } else {
             ((MovieSearchViewHolder) holder).bind(movieModel, holder);
             holder.itemView.setOnClickListener(view -> {
                 itemClick.onItemClick(holder.getAdapterPosition());
@@ -84,8 +82,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public int getItemViewType(int position) {
         if (Constant.IS_POPULAR) {
             return POP_MOVIES_LIST;
-        }
-        else return SEARCH_MOVIES_LIST;
+        } else return SEARCH_MOVIES_LIST;
     }
 
     public MovieModel getSelectedMovie(int pos) {

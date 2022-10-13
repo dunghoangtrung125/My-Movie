@@ -9,20 +9,26 @@ import com.google.gson.annotations.SerializedName;
  * Created by trungdunghoang125 on 07/10/2022
  */
 public class MovieModel implements Parcelable {
-    private String title;
+    public static final Creator<MovieModel> CREATOR = new Creator<MovieModel>() {
+        @Override
+        public MovieModel createFromParcel(Parcel in) {
+            return new MovieModel(in);
+        }
 
+        @Override
+        public MovieModel[] newArray(int size) {
+            return new MovieModel[size];
+        }
+    };
+    private String title;
     @SerializedName("poster_path")
     private String posterPath;
-
     @SerializedName("release_date")
     private String releaseDate;
-
     @SerializedName("id")
     private int movieId;
-
     @SerializedName("vote_average")
     private float voteAverage;
-
     @SerializedName("overview")
     private String movieOverview;
 
@@ -43,18 +49,6 @@ public class MovieModel implements Parcelable {
         voteAverage = in.readFloat();
         movieOverview = in.readString();
     }
-
-    public static final Creator<MovieModel> CREATOR = new Creator<MovieModel>() {
-        @Override
-        public MovieModel createFromParcel(Parcel in) {
-            return new MovieModel(in);
-        }
-
-        @Override
-        public MovieModel[] newArray(int size) {
-            return new MovieModel[size];
-        }
-    };
 
     public String getTitle() {
         return title;

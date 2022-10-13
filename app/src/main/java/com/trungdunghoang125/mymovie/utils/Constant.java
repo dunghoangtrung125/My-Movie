@@ -10,4 +10,5 @@ public class Constant {
     public static final String INTENT_KEY = "movie";
     private static final String YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v=";
     public static boolean IS_POPULAR = true;
+    public static String TAG = "tranle1811";
 }
